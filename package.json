@@ -2,7 +2,7 @@
   "name": "m-studio",
   "version": "1.0.0",
   "description": "A music studio for making fun",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jonayet/m-studio.git"

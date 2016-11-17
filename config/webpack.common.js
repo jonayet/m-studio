@@ -9,7 +9,7 @@ var helpers = require('./helpers');
 module.exports = {
     entry: {
         'vendor': './src/vendor.js',
-        'app': './src/main.js'
+        'app': './src'
     },
 
     module: {
