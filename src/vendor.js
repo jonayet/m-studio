@@ -1,6 +1,10 @@
 /**
  * Created by jonayet on 18/4/16.
  */
-import 'angular';
-import 'angular-ui-router';
-import 'angular-material';
+require('angular');
+require('angular-ui-router');
+require('angular-animate');
+require('angular-aria');
+require('angular-messages');
+require('angular-material');
+require('./../node_modules/angular-material/angular-material.css');
