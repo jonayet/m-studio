@@ -1,0 +1,300 @@
+﻿<div class="full-image-background jamplayer-studio-background full-width full-height overflow-auto" md-theme="{{::vm.appSkin.elements.publicLogo}}" id="js-jamplayer" hide-sm hide-xs>
+    <md-content class="jamplayer-content background-transparent"
+                layout="column" ng-class="{'expanded padding-v-20':vm.open}">
+        <h2 ng-class="{'font-size-0 margin-0': !vm.open}" ng-if="!vm.jamModel.Name">
+            <span translate="JAMPLAYER.HEADER_TEXT"></span>
+        </h2>
+        <md-card layout="row" class="margin-0" ng-if="vm.jamModel.Name">
+        <div layout="row" flex layout-fill layout-align="start" class="center-container flex-initial">
+            <div layout="row" flex="70" flex-md="80" flex-sm="80" flex-xs="100" class="padding-top-10 padding-left-16 padding-bottom-10">
+                <div layout="row" layout-align="space-between center" flex>
+                    <div class="margin-right-15" flex>
+                        <p class="margin-0 text-ellipsis">
+                            <span class="text-bold text-ellipsis">{{vm.jamModel.Name}}</span>
+                            <span class="opacity-80 text-ellipsis" ng-if="vm.jamInfo.CreatedBy.DisplayName"> - {{'JAMPLAYER.BY' | translate}} {{vm.jamInfo.CreatedBy.DisplayName}}</span>
+                            <span class="opacity-80 text-ellipsis" ng-if="vm.jamInfo.RenditionBy.DisplayName"> - {{'JAMPLAYER.RENDITION_BY' | translate}} {{vm.jamInfo.RenditionBy.DisplayName}}</span>
+                        </p>
+                        <label class="md-caption text-bold opacity-70">{{'JAMPLAYER.CREATED_ON' | translate}} {{vm.jamModel.CreateDate | date : 'dd/MM/yyyy'}}</label>
+                        <br />
+                        <label class="md-caption text-bold opacity-70" ng-if="vm.jamInfo.RenditionOn.DisplayName">{{vm.jamModel.Name}} {{'JAMPLAYER.RENDITION_ON' | translate}} {{vm.jamInfo.RenditionOn.DisplayName}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </md-card>
+        <!--<seekable-progress-bar flex class="md-accent jamplayer-content-width" value="vm.value"></seekable-progress-bar>-->
+        <md-card class="margin-0 md-whiteframe-15dp margin-v-20 overflow-hidden" ng-class="{'padding-bottom-20': vm.open && vm.players}">
+            <md-toolbar class="background-transparent md-menu-toolbar">
+                <div class="md-toolbar-tools overlay-40 flex-initial" flex layout="row" layout-align="space-between center">
+                    <div layout="row">
+                        <md-button class="md-icon-button margin-0 square-auto" aria-label="{{'JAMPLAYER.BACKWARD' | translate}}" ng-disabled="false" ng-class="{'opacity-30': !vm.players}" ng-click="vm.seekBackward()">
+                            <md-tooltip md-direction="top">{{'JAMPLAYER.BACKWARD' | translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-fast-rewind" class="font-size-3"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button margin-0 square-56" ng-class="{'md-warn': vm.jamplayer.isPlaying, 'opacity-30': !vm.players}" aria-label="{{(!vm.jamplayer.isPlaying ? 'JAMPLAYER.PLAY' : 'JAMPLAYER.PAUSE')|translate}}" ng-click="vm.playPause()">
+                            <md-tooltip md-direction="top">{{(!vm.jamplayer.isPlaying ? 'JAMPLAYER.PLAY' : 'JAMPLAYER.PAUSE')|translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-play-arrow" class="font-size-4" ng-class="{'icon-play-arrow': !vm.jamplayer.isPlaying, 'icon-pause': vm.jamplayer.isPlaying}"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button margin-0 square-auto" ng-class="{'opacity-30': !vm.players}" aria-label="{{'JAMPLAYER.FORWARD' | translate}}" ng-click="vm.seekForward()">
+                            <md-tooltip md-direction="top">{{'JAMPLAYER.FORWARD' | translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-fast-forward" class="font-size-3"></md-icon>
+                        </md-button>
+                        <!--repeat button-->
+                        <!--<md-button class="md-icon-button tmargin square-auto"
+                                   aria-label="{{'JAMPLAYER.REPEAT'|translate}}"
+                                   ng-click="vm.toggleRepeat()"
+                                   ng-class="{'md-warn': player.state.isRepeat}">
+                            <md-tooltip md-direction="top">{{'JAMPLAYER.REPEAT'|translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-repeat" class="font-size-2"></md-icon>
+                        </md-button>-->
+                    </div>
+
+                    <!--<md-button class="md-icon-button toolbar-button" aria-label="{{(!vm.masterMute ? 'JAMPLAYER.VOLUME' : 'JAMPLAYER.VOLUME_MUTED')|translate}}" ng-class="{'opacity-30': !vm.player, 'md-warn': vm.masterMute}" ng-click="vm.masterMute=vm.alterMasterMute(vm.masterMute)" ng-disabled="!vm.player">-->
+                    <!--<md-tooltip md-direction="top">{{(!vm.masterMute ? 'JAMPLAYER.VOLUME' : 'JAMPLAYER.VOLUME_MUTED')|translate}}</md-tooltip>-->
+                    <!--<md-icon md-font-icon="icon-volume-up" ng-class="{'icon-volume-up': !vm.masterMute, 'icon-volume-off': vm.masterMute}"></md-icon>-->
+                    <!--</md-button>-->
+                    <!--<div flex class="text-right text-light" ng-class="{'opacity-50':vm.open}">-->
+                    <!--<span>{{vm.player}}</span>-->
+                    <!--<span class="margin-right-10" translate="JAMPLAYER.AUDIO_TRACKS"></span>-->
+                    <!--</div>-->
+                    <!--<md-button class="md-icon-button" ng-click="vm.viewFileUploader($event)" aria-label="{{'JAMPLAYER.UPLOAD_AUDIO' | translate}}">-->
+                    <!--<md-tooltip md-direction="top">{{'JAMPLAYER.UPLOAD_AUDIO' | translate}}</md-tooltip>-->
+                    <!--<md-icon md-font-icon="icon-file-upload"></md-icon>-->
+                    <!--</md-button>-->
+                    <!--<md-button class="md-icon-button" ng-click="vm.viewFullscreen('#js-jamplayer')" aria-label="View Fullscreen">
+                        <md-tooltip md-direction="top">{{'JAMPLAYER.VIEW_FULLSCREEN' | translate}}</md-tooltip>
+                        <md-icon md-font-icon="icon-fullscreen"></md-icon>
+                    </md-button>-->
+                    <div layout="row" flex ng-if="!vm.userType.isPublicUser">
+                        <span flex></span>
+                        <!--<md-fab-speed-dial md-direction="left" ng-class="vm.selectedMode" md-open="vm.isShareOpen" ng-if="vm.jamPlayerButton.showShare && vm.userType.isJamCreator">
+                            <md-fab-trigger>
+                                <md-button aria-label="menu" class="md-icon-button md-mini" ng-click="vm.viewShareJam($event)">
+                                    <md-icon md-font-icon="icon-share"></md-icon>
+                                </md-button>
+                            </md-fab-trigger>
+                        </md-fab-speed-dial>-->
+                        <md-button class="md-icon-button" ng-class="vm.selectedMode" ng-if="vm.jamPlayerButton.showUpdateJamByOtherUser" ng-click="vm.getUpdateJamByOtherUser($event)">
+                            <md-tooltip md-direction="top">{{'JAMPLAYER.NEWUPDATE' | translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-arrow-downward"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" ng-class="vm.selectedMode" md-open="vm.isShareOpen" ng-if="vm.jamPlayerButton.showShare && vm.userType.isJamCreator" ng-click="vm.viewShareJam($event)">
+                            <md-tooltip md-direction="top">{{'JAMPLAYER.SHARE' | translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-share"></md-icon>
+                        </md-button>
+                        <md-button ng-if="!vm.jamPlayerButton.showSave && vm.jamType.isShared && !vm.userType.isPublicUser && vm.isJam" class="md-icon-button" ng-click="vm.viewCopyJam($event)" aria-label="{{'JAMPLAYER.COPY' | translate}}">
+                            <md-tooltip md-direction="top">{{'JAMPLAYER.COPY' | translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-content-copy"></md-icon>
+                        </md-button>
+                        <md-button ng-if="vm.jamPlayerButton.showSave" class="md-icon-button margin-0" ng-click="vm.viewFileSave($event)" aria-label="{{'JAMPLAYER.SAVE' | translate}}">
+                            <md-tooltip md-direction="top">{{'JAMPLAYER.SAVE' | translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-save"></md-icon>
+                        </md-button>
+                        <md-button ng-if="!vm.jamType.isShared && !vm.userType.isPublicUser && !vm.jamPlayerButton.showSave" class="md-icon-button margin-0" ng-click="vm.viewUpdateJam($event)" aria-label="{{'JAMPLAYER.UPDATE' | translate}}">
+                            <md-tooltip md-direction="top">{{'JAMPLAYER.UPDATE' | translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-save"></md-icon>
+                        </md-button>
+                        <md-button ng-if="vm.jamPlayerButton.showSave || !vm.jamType.isSaved" class="md-icon-button" ng-click="vm.viewFileUploader($event)" aria-label="{{'JAMPLAYER.UPLOAD_AUDIO' | translate}}">
+                            <md-tooltip md-direction="top">{{'JAMPLAYER.UPLOAD_AUDIO' | translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-file-upload"></md-icon>
+                        </md-button>
+                        <md-menu ng-show="vm.jamPlayerButton.showCollaborator" md-position-mode="target-right target" md-theme="dark-jamahook">
+                            <md-button aria-label="Open demo menu" class="md-icon-button margin-right-15" ng-click="$mdOpenMenu($event)">
+                                <md-tooltip md-direction="top">{{'JAMPLAYER.COLLABORATOR' | translate}}</md-tooltip>
+                                <md-icon md-font-icon="icon-contacts" class="text-light opacity-70"></md-icon>
+                                <span class="toolbar-button-badge" theme-background="warn">{{vm.collaboratorList.length ? vm.collaboratorList.length : 0}}</span>
+                            </md-button>
+                            <md-menu-content width="4" flex="50" style="max-width: 300px;" class="padding-v-0">
+                                <!--"vm.collaboratorList.length < 1 && vm.userType.isJamCreator && !vm.jamType.isShared"-->
+                                <p class="text-light text-center opacity-70" ng-if="vm.collaboratorList.length < 1">
+                                    {{'JAMPLAYER.NO_COLLABORATORS_AVAILABLE' | translate}}
+                                </p>
+                                <div ng-repeat="collaborator in vm.collaboratorList">
+                                    <div layout="row" layout-align="space-between center" class="cur-default padding-v-8 padding-h-10">
+                                        <div layout="row" layout-align="center center" class="overflow-hidden">
+                                            <img ng-src="{{collaborator.ProfileImageUrl}}" class="make-round square-24 border-1 margin-h-10" />
+                                            <p class="margin-0 text-ellipsis text-light">{{collaborator.DisplayName}}</p>
+                                        </div>
+                                        <md-icon ng-if="vm.userType.isJamCreator && !vm.jamType.isShared" md-font-icon="icon-remove-circle" class="margin-left-10 margin-right-10 cur-pointer" ng-click="vm.removeCollaborator($event, collaborator)"></md-icon>
+                                    </div>
+                                    <md-divider></md-divider>
+                                </div>
+                                <div layout="row" ng-if="vm.collaboratorList.length < vm.collaboratorLimit && vm.userType.isJamCreator && !vm.jamType.isShared">
+                                    <span flex></span>
+                                    <md-button class="md-accent text-defaultcase" ng-click="vm.addcollaboration($event)">
+                                        <md-icon md-font-icon="icon-add" class="padding-bottom-5"></md-icon>{{'JAMPLAYER.ADD_COLLABORATOR' | translate}}
+                                    </md-button>
+                                </div>
+                                <div layout="row" ng-if="(vm.collaboratorList.length >= vm.collaboratorLimit) && vm.userType.isJamCreator && !vm.jamType.isShared">
+                                    <p class="cur-default alert-error margin-left-20">{{'JAMPLAYER.MAXIMUM_COLLABORATORS_ADDED' | translate}}</p>
+                                </div>
+                            </md-menu-content>
+                        </md-menu>
+                        <div flex class="text-light text-center font-size-fixed-18 margin-top-8 width-135" ng-class="{'opacity-50':vm.open}">
+                            <span>{{vm.players.length}}</span>
+                            <span class="margin-right-10" translate="JAMPLAYER.AUDIO_TRACKS"></span>
+                        </div>
+                        <md-button class="md-icon-button" aria-label="Collapse" ng-click="vm.open=!vm.open">
+                            <md-tooltip md-direction="top">{{(vm.open ? 'Collapse':'Expand') | translate}}</md-tooltip>
+                            <md-icon md-font-icon="icon-unfold-less" ng-class="{'icon-unfold-less': vm.open, 'icon-unfold-more': !vm.open}"></md-icon>
+                        </md-button>
+                    </div>
+                    <!--<md-button class="md-icon-button" aria-label="Collapse" ng-click="vm.open=!vm.open">
+                        <md-tooltip md-direction="top">{{(vm.open ? 'Collapse':'Expand') | translate}}</md-tooltip>
+                        <md-icon md-font-icon="icon-unfold-less" ng-class="{'icon-unfold-less': vm.open, 'icon-unfold-more': !vm.open}"></md-icon>
+                    </md-button>-->
+                </div>
+            </md-toolbar>
+
+            <md-list-item class="padding-0" palette-background="dark-grey:500">
+                <div layout="row" flex layout-align="center center" class="jamplayer-track-container margin-left-20">
+                    <div flex>
+                        <seekable-progress-bar flex class="md-accent jamplayer-content-width"
+                                               mode="buffer"
+                                               max="{{vm.config.duration}}"
+                                               value="vm.jamplayer.currentTime"
+                                               active="true"
+                                               buffer-value="100"
+                                               on-click-tap="vm.seekTo"></seekable-progress-bar>
+                    </div>
+                    <label class="md-caption margin-h-20">
+                        <span>{{(vm.config.duration) * 1000 | date: 'mm:ss'}}</span>
+                    </label>
+                </div>
+                <md-divider ng-if="vm.open"></md-divider>
+            </md-list-item>
+
+            <md-divider></md-divider>
+
+            <md-list class="position-relative padding-v-0 jamplayer-studio" palette-background="dark-grey:900" ng-class="{'jamplayer-plays': vm.jamplayer.isPlaying}">
+                <media-grid-line class="jamplayer-seeker-container jamplayer-content-width margin-left-20"
+                                 ng-show="vm.open && vm.players.length"
+                                 current-time="vm.jamplayer.currentTime"
+                                 play-count="{{vm.players.length}}"
+                                 pixel-per-second="vm.pixelPerSecond"
+                                 heighlight-grid="vm.activeCurrentGrid"
+                                 second-per-grid="1"
+                                 timeline-duration="{{vm.config.duration}}"></media-grid-line>
+
+                <md-list-item ng-repeat="player in vm.players" class="jamplayer-track-item">
+                    <!--reference track-->
+                    <div class="position-absolute full-height top-0 left-0 padding-h-10" palette-background="jamahook-teal:400" ng-if="$index==0"></div>
+                    <div class="jamplayer-track-container margin-left-4 overlay-25" layout="column">
+                        <div layout="row">
+                            <div layout="row" layout-align="start center" class="width-500">
+                                <h3 class="md-body-1 text-ellipsis padding-left-10 width-500" ng-show="player.tracks.length">
+                                    {{player.tracks[0].trackName}}
+                                    <span class="md-caption opacity-50">&nbsp; - {{'JAMPLAYER.BY' | translate}}  {{player.tracks[0].author}}</span>
+                                </h3>
+                            </div>
+                            <span flex></span>
+                            <div layout="row" class="margin-right-10">
+                                <!--copy button-->
+                                <md-button class="md-icon-button toolbar-button margin-top-5"
+                                           aria-label="{{'COPY'|translate}}"
+                                           ng-click="vm.createCopy(player)"
+                                           ng-show="player.config.canCopy">
+                                    <md-tooltip md-direction="bottom">{{'COPY'|translate}}</md-tooltip>
+                                    <md-icon md-font-icon="icon-content-copy" class="margin-right-10"></md-icon>
+                                </md-button>
+                                <!--delete button-->
+                                <md-button class="md-icon-button toolbar-button margin-top-5"
+                                           aria-label="{{'DELETE'|translate}}"
+                                           ng-click="vm.deleteTrack($event, player)"
+                                           ng-show="player.config.canDelete && player.tracks.length > 1">
+                                    <md-tooltip md-direction="bottom">{{'DELETE'|translate}}</md-tooltip>
+                                    <md-icon md-font-icon="icon-delete" class="margin-right-10"></md-icon>
+                                </md-button>
+                            </div>
+                            <div layout="row" class="margin-right-10">
+                                <span class="md-caption text-ellipsis margin-right-10 margin-top-15"> {{player.tracks[0].bpm}} bpm</span>
+                                <md-icon md-font-icon="icon-timelapse" class="font-size-2"></md-icon>
+                                <span class="md-caption v-mid margin-top-15 margin-left-5">{{(player.tracks[0].duration)  * 1000 | date: 'mm:ss'}}</span>
+                            </div>
+                            <div flex="15" class="volume-controller padding-right-10" layout="row" layout-align="start center">
+                                <md-button class="md-icon-button toolbar-button margin-h-0"
+                                           aria-label="{{(!player.state.isMuted ? 'JAMPLAYER.VOLUME' : 'JAMPLAYER.VOLUME_MUTED')|translate}}"
+                                           ng-click="vm.toggleMute(player)"
+                                           ng-class="{'md-warn': player.state.isMuted}">
+                                    <md-tooltip md-direction="bottom">{{(!vm.jamplayer.muted ? 'JAMPLAYER.VOLUME' : 'JAMPLAYER.VOLUME_MUTED')|translate}}</md-tooltip>
+                                    <div ng-if="!player.state.isMuted">
+                                        <md-icon md-font-icon="icon-volume-up" ng-if="player.state.volume >= 0.7"></md-icon>
+                                        <md-icon md-font-icon="icon-volume-down" ng-if="player.state.volume >= 0.3 && player.state.volume < 0.7"></md-icon>
+                                        <md-icon md-font-icon="icon-volume-mute" ng-if="player.state.volume < 0.3"></md-icon>
+                                    </div>
+                                    <md-icon md-font-icon="icon-volume-off" ng-if="player.state.isMuted"></md-icon>
+                                </md-button>
+                                <md-slider flex class="md-accent md-hue-1 margin-right-0" ng-model="player.state.volume" min="0.0" max="1" step="0.1" aria-label="{{'AUDIO_PLAYER.VOLUME_CONTROL'|translate}}"></md-slider>
+                            </div>
+                            <!--<div class="jamplayer-duration md-caption margin-right-10 margin-bottom-5">
+                                <span class="md-caption text-ellipsis margin-right-20"> {{player.tracks[0].bpm}} bpm</span>
+                                <md-icon md-font-icon="icon-timelapse" class="font-size-2"></md-icon>
+                                <span class="v-mid">{{(player.tracks[0].duration)  * 1000 | date: 'mm:ss'}}</span>
+                            </div>-->
+                        </div>
+                        <div class="jamplayer-content-width">
+                            <wave-surfer-player player="player"></wave-surfer-player>
+                        </div>
+                    </div>
+                    <div>
+                        <md-menu md-position-mode="target-right target" class="text-light" ng-hide="vm.referenceId === player.tracks[0].id && (!player.tracks[0].businessFileId || player.tracks[0].isMine || player.tracks[0].isPurchased)">
+                            <md-button aria-label="Open demo menu" class="md-icon-button margin-right-0 margin-left-10" ng-click="$mdOpenMenu($event)">
+                                <md-icon md-menu-origin md-font-icon="icon-more-vert"></md-icon>
+                            </md-button>
+                            <md-menu-content width="3">
+                                <md-menu-item style="display: none">
+                                    <md-menu>
+                                        <md-button aria-label="Open demo menu" ng-click="$mdOpenMenu($event)">
+                                        </md-button>
+                                        <md-menu-content>
+
+                                        </md-menu-content>
+                                    </md-menu>
+                                </md-menu-item>
+                                <md-menu-item ng-hide="player.tracks[0].isMine || player.tracks[0].isPurchased || !player.tracks[0].businessFileId">
+                                    <md-button aria-label="{{(!player.tracks[0].isAddedToCart ? 'JAMPLAYER.ADD_TO_CART' : 'JAMPLAYER.ADDED_TO_CART') | translate}}"
+                                               ng-class="{'md-primary': !player.tracks[0].isAddedToCart, 'md-accent md-hue-3': player.tracks[0].isAddedToCart}"
+                                               ng-click="(!player.tracks[0].isAddedToCart && vm.addToCartOrWishlist(player.tracks[0].businessFileId, $index, 'cart'))">
+                                        <md-icon md-font-icon ng-class="{'icon-add-shopping-cart': !player.tracks[0].isAddedToCart, 'icon-shopping-cart': player.tracks[0].isAddedToCart}"></md-icon>
+                                        <span class="v-mid">{{(!player.tracks[0].isAddedToCart ? 'JAMPLAYER.ADD_TO_CART' : 'JAMPLAYER.ADDED_TO_CART') | translate}}</span>
+                                    </md-button>
+                                </md-menu-item>
+
+                                <md-menu-item ng-hide="vm.referenceBpm === player.tracks[0].bpm">
+                                    <md-button aria-label="{{'JAMPLAYER.CONVERT' | translate}}"
+                                               class="md-primary text-left"
+                                               ng-click="vm.convertBpm($event, player)"
+                                               ng-disabled="vm.jamplayer.isPlaying">
+                                        <md-icon md-font-icon="icon-graphic-eq"></md-icon> <span class="v-mid">{{'JAMPLAYER.CONVERT_BPM' | translate}}</span>
+                                    </md-button>
+                                </md-menu-item>
+
+                                <md-menu-item ng-hide="vm.referenceId === player.tracks[0].id">
+                                    <md-button aria-label="{{'JAMPLAYER.SET_AS_REFERENCE_TRACK' | translate}}" class="md-primary text-left" ng-click="vm.switchReferenceTrack($index, player)" ng-disabled="vm.jamplayer.isPlaying">
+                                        <md-icon md-font-icon="icon-beenhere"></md-icon> <span class="v-mid">{{'JAMPLAYER.SET_AS_REFERENCE_TRACK' | translate}}</span>
+                                    </md-button>
+                                </md-menu-item>
+
+                            <md-menu-item ng-hide="vm.referenceId === player.tracks[0].id">
+                                <md-button aria-label="{{'JAMPLAYER.REMOVE' | translate}}" class="md-primary text-left" ng-click="vm.removePlayer(player)" ng-disabled="vm.jamplayer.isPlaying">
+                                    <md-icon md-font-icon="icon-remove-circle"></md-icon> <span class="v-mid">{{'JAMPLAYER.REMOVE' | translate}}</span>
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+		</div>
+
+                    <!--<div class="margin-left-8" ng-show="player.tracks[0].isMine || player.tracks[0].isPurchased || !player.tracks[0].businessFileId">-->
+                    <!--<md-button aria-label="{{'JAMPLAYER.REMOVE' | translate}}" class="md-primary md-icon-button" ng-click="vm.removePlayer(player)" ng-disabled="vm.jamplayer.isPlaying">-->
+                    <!--<md-icon md-font-icon="icon-close"></md-icon>-->
+                    <!--<md-tooltip md-direction="bottom">{{'JAMPLAYER.REMOVE' | translate}}</md-tooltip>-->
+                    <!--</md-button>-->
+                    <!--</div>-->
+                    <md-divider></md-divider>
+                </md-list-item>
+                <!--</div>-->
+                <p class="margin-h-20" ng-if="vm.open && !vm.players">{{'JAMPLAYER.NO_TRACKS_ADD' | translate}}</p>
+            </md-list>
+        </md-card>
+    </md-content>
+</div>

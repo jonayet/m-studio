@@ -13,6 +13,14 @@ function routerConfig($stateProvider, $urlRouterProvider) {
         controllerAs: 'vm'
     });
 
+    $stateProvider.state({
+        name: 'jamplayer',
+        url: '/jamplayer',
+        template: require("./jamplayer/view/jamplayer.view.html"),
+        controller: 'jamplayerController',
+        controllerAs: 'vm'
+    });
+
     $urlRouterProvider.otherwise('/');
 }
 routerConfig.$inject = ['$stateProvider', '$urlRouterProvider'];

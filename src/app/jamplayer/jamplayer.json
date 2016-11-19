@@ -1,0 +1,71 @@
+{
+  "config": {
+    "readOnly": false,
+    "duration": 300
+  },
+  "state":  {
+    "currentTime": 150
+  },
+  "players": [
+    {
+      "state": {
+        "volume": 0.3,
+        "isMuted": false
+      },
+      "tracks": [
+        {
+          "url": "/music/Boum Boum.mp3",
+          "trackName": "Boum Boum",
+          "startTime": 0,
+          "startTrim": 0,
+          "endTrim": 0,
+          "author": "Enigma",
+          "duration": 323.1880045351474
+        },
+        {
+          "url": "/music/Boum Boum.mp3",
+          "trackName": "Boum Boum",
+          "startTime": 150,
+          "startTrim": 0,
+          "endTrim": 0,
+          "author": "Enigma",
+          "duration": 323.1880045351474
+        }
+      ]
+    },
+    {
+      "state": {
+        "volume": 0.6,
+        "isMuted": true
+      },
+      "tracks": [
+        {
+          "url": "/music/Celia.mp3",
+          "trackName": "Celia",
+          "startTime": 20,
+          "startTrim": 50,
+          "endTrim": 0,
+          "author": "Enigma",
+          "duration": 281.02530612244897
+        }
+      ]
+    },
+    {
+      "state": {
+        "volume": 1,
+        "isMuted": false
+      },
+      "tracks": [
+        {
+          "url": "/music/Beyond the Invisible.mp3",
+          "trackName": "Beyond the Invisible",
+          "startTime": 0,
+          "startTrim": 0,
+          "endTrim": 0,
+          "author": "Enigma",
+          "duration": 323.1880045351474
+        }
+      ]
+    }
+  ]
+}
